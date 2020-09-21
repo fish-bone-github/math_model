@@ -1,0 +1,26 @@
+import Question1
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+data = pd.read_excel('E:\\Desktop\\2020建模比赛\\附件.xlsx')
+list_tmp = Question1.Zip_data(172,186,225,258,25)
+data_time = data['时间(s)']
+def data_df(j):
+    k = 0.009996
+    weizhi_list = []
+    weizhi_data = Question1.weizhi[0]
+    for i in range(708):
+        deta_T = list_tmp[i] - weizhi_data
+        new_k = 70 / j
+        f1 = deta_T * k * new_k
+        weizhi_data = weizhi_data + f1
+        weizhi_list.append(weizhi_data)
+    return weizhi_list
+list1 = data_df(71.8)
+print(max(list1))
+plt.plot(data_time[0:708]*70/71.8,list1,label='最优炉温曲线')
+plt.xlabel('时间')
+plt.ylabel('温度')
+plt.title('炉温曲线图')
+plt.legend(loc='upper left')
+plt.show()
