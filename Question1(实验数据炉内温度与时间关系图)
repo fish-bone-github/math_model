@@ -1,0 +1,37 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+plt.rcParams['font.sans-serif']=['SimHei']
+#⽤来正常显示中⽂标签
+plt.rcParams['axes.unicode_minus']=False
+data = pd.read_excel('E:\\Desktop\\2020建模比赛\\附件.xlsx')
+data_time = data['时间(s)']
+data_temprature = data['温度(ºC)']
+nhlist = []
+for i in range(708):
+    nh = (data_temprature.iloc[i+1] - data_temprature.iloc[i])*1/0.009964 + data_temprature[i]
+
+    nhlist.append(nh)
+data_time1 = data_time.iloc[0:708]
+plt.plot(data_time1, nhlist,label='炉内温度')
+plt.title('实验数据炉内时间与温度变化图')
+plt.xlabel('时间')
+plt.ylabel('温度')
+plt.vlines(19,0,300,color='red',linestyles = "dashed")
+plt.vlines(54,0,300,color='red',linestyles = "dashed")
+plt.vlines(170.5,0,300,color='red',linestyles = "dashed")
+plt.vlines(178,0,300,color='red',linestyles = "dashed")
+plt.vlines(221.5,0,300,color='red',linestyles = "dashed")
+plt.vlines(233,0,300,color='red',linestyles = "dashed")
+plt.vlines(245.5,0,300,color='red',linestyles = "dashed")
+plt.vlines(283,0,300,color='red',linestyles = "dashed")
+plt.text(19,77,75.1926, weight="bold")
+plt.text(54,182,174.3198,ha='left')
+plt.text(170.5,170,175.9525, weight="bold",ha='left')
+plt.text(178,190,184.6478,ha='left')
+plt.text(221.5,260,256.3259, weight="bold")
+plt.text(233,230,245.9601)
+plt.text(245.5,280,255.6136, weight="bold")
+plt.text(283,260,255.2806, weight="bold")
+plt.legend(loc='upper left')
+plt.show()
