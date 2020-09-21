@@ -1,0 +1,33 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import Question1
+plt.rcParams['font.sans-serif']=['SimHei']
+#⽤来正常显示中⽂标签
+plt.rcParams['axes.unicode_minus']=False
+data = pd.read_excel('E:\\Desktop\\2020建模比赛\\附件.xlsx')
+data_time = data['时间(s)']
+data_temprature = data['温度(ºC)']
+data_time5 = data_time.iloc[0:708]/(78/70)
+weizhi_list = []
+listp = Question1.Zip_data(173,198,230,257,25)
+k = 0.009996*70/78
+x1 = data_time
+y1 =  data_temprature
+weizhi = data_temprature
+weizhi_data = weizhi[0]
+for i in range(708):
+    deta_T = listp[i] - weizhi_data
+    f1 = deta_T*k
+    weizhi_data = weizhi_data + f1
+    weizhi_list.append(weizhi_data)
+plt.plot(data_time5,weizhi_list,label='问题一图')
+plt.plot(x1, y1, '-',color='red',label='附件图')
+plt.hlines(240.63, 50,380, colors = "r", linestyles = "dashed")
+plt.hlines(242.28, 50,380, colors = "r", linestyles = "dashed")
+plt.text(230,230,round(max(weizhi_list),3))
+plt.text(280,245,round(max(y1),3))
+plt.legend(loc='upper left')
+plt.xlabel('时间')
+plt.ylabel('温度')
+plt.show()
