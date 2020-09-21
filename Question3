@@ -1,0 +1,33 @@
+import Question1
+import Question2
+import numpy as np
+
+temp1 = list(np.random.randint(165, 185, 10))
+temp2 = list(np.random.randint(185, 205, 10))
+temp3 = list(np.random.randint(225, 245, 10))
+temp4 = list(np.random.randint(245, 265, 10))
+qlist = []
+sum_date = 0
+min_date = 10000
+for i in temp1:
+    for j in temp2:
+        for ii in temp3:
+            sum_date = 0
+
+            for jj in temp4:
+                wz_data = Question1.weizhi[0]
+                plist = Question1.Zip_data(172, 186, 225, 258, 25)
+                ques3 = Question2.solution2(plist)
+
+                for m in range(200, 708):
+                    if plist[m] > 217:
+                        data = plist[m] - 217
+                        sum_date += data
+
+                if sum_date < min_date:
+                    min_date = sum_date
+                    qlist = []
+                    qlist.append(([i, j, ii, jj]))
+                    # print(sum)
+print(qlist, min_date, ques3)
+
