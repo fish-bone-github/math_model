@@ -1,0 +1,42 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+plt.rcParams['font.sans-serif']=['SimHei']
+#⽤来正常显示中⽂标签
+plt.rcParams['axes.unicode_minus']=False
+data = pd.read_excel('E:\\Desktop\\2020建模比赛\\附件.xlsx')
+data_time = data['时间(s)']
+data_temprature = data['温度(ºC)']
+nhlist = []
+for i in range(708):
+    nh = (data_temprature.iloc[i+1] - data_temprature.iloc[i])*1/0.009964 + data_temprature[i]
+    nhlist.append(nh)
+data_time2 = data_time.iloc[0:708]*7/6
+plt.plot(data_time2, nhlist,label='炉内温度')
+plt.title('实验数据炉内位置与温度变化图')
+plt.xlabel('位移')
+plt.ylabel('温度')
+plt.vlines(25,0,300,color='red',linestyles = "dashed")
+plt.vlines(197.5,0,300,color='red',linestyles = "dashed")
+plt.vlines(202.5,0,300,color='red',linestyles = "dashed")
+plt.vlines(237.5,0,300,color='red',linestyles = "dashed")
+plt.vlines(242.5,0,300,color='red',linestyles = "dashed")
+plt.vlines(277.5,0,300,color='red',linestyles = "dashed")
+plt.vlines(282.5,0,300,color='red',linestyles = "dashed")
+plt.vlines(358.5,0,300,color='red',linestyles = "dashed")
+plt.vlines(363.5,0,300,color='red',linestyles = "dashed")
+plt.vlines(415.5,0,300,color='red',linestyles = "dashed")
+plt.vlines(435.5,0,300,color='red',linestyles = "dashed")
+plt.text(25.0833,90,88.6923, weight="bold")
+plt.text(197.1667,180,175.6825, weight="bold")
+plt.text(202.4167,165,177.5261, weight="bold")
+plt.text(237.4167,215,210.0384, weight="bold")
+plt.text(242.6667,234,230.4898, weight="bold")
+plt.text(277.6667,245,246.4192, weight="bold")
+plt.text(282.3333,260,251.1265, weight="bold")
+plt.text(358.3575,190,196.6319, weight="bold")
+plt.text(363.4167,180,177.7977, weight="bold")
+plt.text(415.3333,100,94.9035, weight="bold")
+plt.text(434.5833,80,83.1796, weight="bold")
+plt.legend(loc='upper left')
+plt.show()
