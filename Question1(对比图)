@@ -1,0 +1,21 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+plt.rcParams['font.sans-serif']=['SimHei']
+#⽤来正常显示中⽂标签
+plt.rcParams['axes.unicode_minus']=False
+data = pd.read_excel('E:\\Desktop\\2020建模比赛\\附件.xlsx')
+data_time = data['时间(s)']
+data_temprature = data['温度(ºC)']
+alist = []
+for i in range(708):
+    df = (data_temprature.iloc[i+1] - data_temprature.iloc[i])*(-100)
+    alist.append(df)
+alist1 = []
+for i in range(709):
+    df1 = 25 - data_temprature.iloc[i]
+    alist1.append(df1)
+plt.plot(alist1,color='red',label='电子元件与炉内（175）温差')
+plt.plot(alist,label='附件中电子元件前后温度差分')
+plt.legend()
+plt.show()
