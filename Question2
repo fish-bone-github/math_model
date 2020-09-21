@@ -1,0 +1,70 @@
+import Question1
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+result = pd.read_excel('E:\\Desktop\\result.xlsx')
+data_x = result['位移']
+
+def Date_compute(time_list, atime, ctime=None):
+    """
+    t150-t190
+    t217
+    时间间隔计算
+    """
+    j = 0
+    for i in range(708):
+        if ctime and j < 1:
+            if time_list[i] > atime:
+                one_time = i
+                j += 1
+        elif ctime and j == 1:
+            if time_list[i] > ctime:
+                two_time = i
+                j += 1
+        elif not ctime and j < 1:
+            if time_list[i] > atime:
+                one_time = i
+                j += 1
+        elif not ctime and j == 1:
+            if time_list[i] < atime:
+                two_time = i
+                j += 1
+        if j == 2:
+            break
+    return one_time, two_time
+
+
+data_time5 = Question1.data_time.iloc[0:708]
+list_tmp = Question1.Zip_data(182, 203, 237, 254, 25)
+
+
+def solution2():
+    k = 0.009996
+
+    speed = []
+    for j in  list(np.arange(65,101,0.2)):
+        weizhi_list = []
+        weizhi_data = Question1.weizhi[0]
+        for i in range(708):
+            deta_T = list_tmp[i] - weizhi_data
+            new_k = 70 / j
+            f1 = deta_T * k * new_k
+            weizhi_data = weizhi_data + f1
+            weizhi_list.append(weizhi_data)
+        top_value = max(weizhi_list)
+        s1217, s2217 = Date_compute(weizhi_list, 217)
+        s150, s190 = Date_compute(weizhi_list, 150, 190)
+        t150 = (list(data_x)[s190] - list(data_x)[s150]) * j / 120
+        t217 = (list(data_x)[s2217] - list(data_x)[s1217]) * j / 120
+        #print(top_value, t150,list(data_x)[s190],list(data_x)[s150])
+        if top_value >= 240 and top_value <= 250 and t150 >= 60 and t150 <= 120 and t217 >= 40 and t217 <= 90:
+            speed.append(j)
+        else:
+            continue
+    return speed
+
+
+if __name__ == "__main__":
+    ques2 = solution2()
+    print(ques2)
+    print('最大传送过炉速度为:', ques2[-1], 'cm/min')
